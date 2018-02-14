@@ -2,13 +2,26 @@
 <html>
 <head>
 <meta charset="ISO-8859-1"/>
+<!-- Bootstrap CSS -->
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" />
+<!-- jQuery first, then Tether, then Bootstrap JS. -->
+<script src="http://code.jquery.com/jquery-2.2.4.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"></script>
+<link rel="stylesheet"
+	href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" />
+<link rel="stylesheet" href="/resources/demos/style.css" />
 <title>Edit Golongan</title>
 </head>
 <body>
+<h2>Ubah Golongan</h2>
 	<form action="#" th:action="@{/golongan/edit}" th:object="${golongan}" method="post">
-		<div>
+		<div class="form-group col-md-3">
 			<label th:for="${golongan.Nama}">Nama</label>
-			<input type="text" th:field="*{Nama}" th:errorclass="fieldError"/>
+			<input type="text" th:field="*{Nama}" th:errorclass="fieldError" class="form-control"/>
 			<p th:if="${#fields.hasErrors('Nama')}" th:errors="*{Nama}">Nama</p>
 		</div>
 		<div>

@@ -1,24 +1,42 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="ISO-8859-1"/>
+<meta charset="ISO-8859-1" />
+<!-- Bootstrap CSS -->
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" />
+<!-- jQuery first, then Tether, then Bootstrap JS. -->
+<script src="http://code.jquery.com/jquery-2.2.4.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"></script>
+<link rel="stylesheet"
+	href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" />
+<link rel="stylesheet" href="/resources/demos/style.css" />
+
 <title>Tambah Data Golongan</title>
 </head>
 <body>
-	<form action="#" th:action="@{/golongan/add}" th:object="${golongan}" method="post">
-		<div>
-			<label th:for="${golongan.golonganId}">Golongan Id</label>
-			<input type="text" th:field="*{golonganId}" th:errorclass="fieldError"/>
-			<p th:if="${#fields.hasErrors('golonganId')}" th:errors="*{golonganId}">Golongan Id</p>
+<h2>Tambah Data Golongan</h2>
+	<form action="#" th:action="@{/golongan/add}" th:object="${golongan}"
+		method="post">
+		<div class="form-group col-md-1">
+			<label th:for="${golongan.golonganId}">Golongan ID</label> <input
+				type="text" th:field="*{golonganId}" th:errorclass="fieldError" class="form-control" />
+			<p th:if="${#fields.hasErrors('golonganId')}"
+				th:errors="*{golonganId}">Golongan ID</p>
 		</div>
-		<div>
-			<label th:for="${golongan.Nama}">Nama</label>
-			<input type="text" th:field="*{Nama}" th:errorclass="fieldError"/>
+		<div class="form-group col-md-3">
+			<label th:for="${golongan.Nama}">Nama</label> <input type="text"
+				th:field="*{Nama}" th:errorclass="fieldError" class="form-control"/>
 			<p th:if="${#fields.hasErrors('Nama')}" th:errors="*{Nama}">Nama</p>
 		</div>
 		<div>
-		<input type="submit" value="SIMPAN"/>
+			<input type="submit" class="btn btn-primary" value="SIMPAN" />
 		</div>
+
 	</form>
+
 </body>
 </html>
