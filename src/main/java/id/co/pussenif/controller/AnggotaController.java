@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import id.co.pussenif.dao.AnggotaDAO;
+import id.co.pussenif.dao.GolonganDAO;
 import id.co.pussenif.model.Anggota;
 
 
@@ -23,6 +24,7 @@ public class AnggotaController {
 	
 	@Autowired
 	private AnggotaDAO anggotaDAO;
+	private GolonganDAO golonganDAO;
 	
 	@GetMapping("/index")
 	public String index(Model model) {
@@ -42,6 +44,7 @@ public class AnggotaController {
 	@GetMapping("/add")
 	public String add(Model model) {
 		model.addAttribute("anggota", new Anggota());
+		//model.addAttribute("gol", golonganDAO.getAllGolongan());
 		return "anggota/add";
 	}
 	
