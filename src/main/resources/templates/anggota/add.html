@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1"/>
+<title>Tambah Anggota</title>
+</head>
+<body>
+	<form action="#" th:action="@{/anggota/add}" th:object="${anggota}" method="post">
+		<div>
+			<label th:for="${anggota.Nama}">Nama</label>
+			<input type="text" th:field="*{Nama}" th:errorclass="fieldError"/>
+			<p th:if="${#fields.hasErrors('Nama')}" th:errors="*{Nama}">Nama</p>
+		</div>
+		<div>
+			<label th:for="${actor.Alamat}">Alamat</label>
+			<input type="text" th:field="*{Alamat}" th:errorclass="fieldError"/>
+			<p th:if="${#fields.hasErrors('Alamat')}" th:errors="*{Alamat}">Alamat</p>
+		</div>
+		<div>
+		<input type="submit" value="SIMPAN"/>
+		</div>
+	</form>
+</body>
+</html>

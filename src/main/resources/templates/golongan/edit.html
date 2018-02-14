@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1"/>
+<title>Edit Golongan</title>
+</head>
+<body>
+	<form action="#" th:action="@{/golongan/edit}" th:object="${golongan}" method="post">
+		<div>
+			<label th:for="${golongan.Nama}">Nama</label>
+			<input type="text" th:field="*{Nama}" th:errorclass="fieldError"/>
+			<p th:if="${#fields.hasErrors('Nama')}" th:errors="*{Nama}">Nama</p>
+		</div>
+		<div>
+		<input type="submit" value="UBAH"/>
+		<!-- <input type="hidden" th:field="*{golonganId}" th:value="*{golonganId}" /> -->
+		</div>
+	</form>
+</body>
+</html>

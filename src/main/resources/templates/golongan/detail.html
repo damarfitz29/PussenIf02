@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1"/>
+<title>Detail Golongan</title>
+</head>
+<body>
+	<h1>DATA GOLONGAN</h1>
+	<table>
+		<thead>
+			<tr>
+				<th>GOLONGAN ID</th>
+				<th>Nama</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="golongan : ${objekGolongan}">
+				<td th:text="${golongan.golonganId}"> </td>
+				<td th:text="${golongan.Nama}"> </td>
+				</tr>
+		</tbody>
+	</table>
+</body>
+</html>

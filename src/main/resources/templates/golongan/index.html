@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1"/>
+
+<script type="text/javascript">
+	$(document).ready(function(){
+		$("table").dataTable();
+	});
+</script>
+
+<title>Index Golongan</title>
+</head>
+<body>
+	<p th:text="${tanggal}"> </p>
+	<h1>DATA GOLONGAN</h1>
+	
+	<table>
+		<thead>
+			<tr>
+				<th>Nama</th>
+				<th>Details</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="golongan : ${semuaGolongan}">
+				<td th:text="${golongan.Nama}" class="fName"> </td>
+				<td>
+					<a th:href="@{'/golongan/detail/' + ${golongan.golonganId}}">Detail</a>
+					<a th:href="@{'/golongan/edit/' + ${golongan.golonganId}}">Edit</a>	
+					<a th:href="@{'/golongan/delete/' + ${golongan.golonganId}}">Delete</a>	
+					<!-- <input type="hidden" class="actorIds" th:value="${actor.actorId}"/> -->			
+				</td>
+				</tr>
+		</tbody>
+	</table>
+</body>
+</html>

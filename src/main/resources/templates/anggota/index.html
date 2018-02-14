@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1"/>
+<title>Index Anggota</title>
+</head>
+<body>
+	<p th:text="${tanggal}"> </p>
+	<h1>Daftar Anggota</h1>
+	<table>
+		<thead>
+			<tr>
+				<th>Nama</th>
+				<th>Golongan</th>
+				<th>Divisi</th>
+				<th>Status</th>
+				<th>Details</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="anggota : ${semuaAnggota}">
+				<td th:text="${anggota.Nama}" class="Nama"> </td>
+				<td th:text="${anggota.GolonganId}" class="GolonganId"> </td>
+				<td th:text="${anggota.DivisiId}" class="DivisiId"> </td>
+				<td th:text="${anggota.Status}" class="Status"> </td>
+				<td>
+					<a th:href="@{'/anggota/detail/' + ${anggota.anggotaId}}">Detail</a>
+					<a th:href="@{'/anggota/edit/' + ${anggota.anggotaId}}">Edit</a>
+					<a th:href="@{'/anggota/delete/' + ${anggota.anggotaId}}">Delete</a>	
+					<!-- <input type="hidden" class="actorIds" th:value="${actor.actorId}"/>	 -->		
+				</td>
+				</tr>
+		</tbody>
+	</table>
+</body>
+</html>
