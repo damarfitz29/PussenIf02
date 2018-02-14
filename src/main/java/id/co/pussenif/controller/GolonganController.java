@@ -59,7 +59,7 @@ public class GolonganController {
 		return "golongan/edit";	
 	}
 	
-	@PostMapping("/golongan")
+	@PostMapping("/edit")
 	public String editGolongan(@Valid Golongan golongan, BindingResult result){
 		if(!result.hasErrors() && golonganDAO.editGolongan(golongan)) {
 			return "redirect:/golongan/index";

@@ -15,6 +15,7 @@ import id.co.pussenif.model.Golongan;
 
 @Service
 public class GolonganDAO {
+	
 	@Autowired
 	private EntityManagerFactory factory;
 	
