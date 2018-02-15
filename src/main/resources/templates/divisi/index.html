@@ -21,68 +21,32 @@
 	$(document).ready(function(){
 		$("table").dataTable();
 	});
-	
-	$(document).on('dblclick','Nama',function(){
-		alert("bisa")
-		var idx = $(".Nama").index(this);
-		var golonganId = $(".golonganId:eq(" + idx + ")").val();
-		var newName = prompt("Ganti Nama Golongan", $(this).text());
-		var url = "/gantiNamaGol";
-		var clicked = $(this);
-		$.get(url, {x : golonganId, y: newName})
-			.done(function(data){
-				if(data) $(clicked).text(newName);
-		});
-	});
-	
 </script>
-
-<title>Index Golongan</title>
+<title>Index Divisi</title>
 </head>
 <body>
-<div class="topnav">
-  <a class="active" href="#home">Home</a>
-  <a href="#presensi">Presensi</a>
-  <a href="#contact">Contact</a>
-  <a href="#about">About</a>
-</div>
-	<p th:text="${tanggal}"> </p>
-	<h1 style="padding-left:15px;">DATA GOLONGAN</h1>
-	<div style="padding-left:15px;">
-		<button type="button" class="btn btn-sm"><a th:href="@{'/golongan/add/' }">ADD</a></button>
-	</div>
+	<h2>DATA DIVISI</h2>
+	
 	<table class="table table-striped col-lg-10">
 		<thead>
 			<tr>
 				<th>Nama</th>
+				<th>Level</th>
 				<th>Details</th>
 			</tr>
 		</thead>
 		<tbody>
-			<tr th:each="golongan : ${semuaGolongan}">
-				<td th:text="${golongan.Nama}" class="fName"> </td>
+			<tr th:each="divisi : ${semuaDivisi}">
+				<td th:text="${divisi.Nama}" class="fName"> </td>
+				<td th:text="${divisi.Level}" class="fLevel"> </td>
 				<td>
-					<a th:href="@{'/golongan/detail/' + ${golongan.golonganId}}">Detail</a>
-					<a th:href="@{'/golongan/edit/' + ${golongan.golonganId}}">Edit</a>	
-					<a th:href="@{'/golongan/delete/' + ${golongan.golonganId}}">Delete</a>	
+					<a th:href="@{'/divisi/detail/' + ${divisi.divisiId}}">Detail</a>
+					<a th:href="@{'/divisi/edit/' + ${divisi.divisiId}}">Edit</a>	
+					<a th:href="@{'/divisi/delete/' + ${divisi.divisiId}}">Delete</a>	
 					<!-- <input type="hidden" class="actorIds" th:value="${actor.actorId}"/> -->			
 				</td>
 				</tr>
 		</tbody>
 	</table>
-<style>
-	.footer {
-    	position: fixed;
-    	left: 0;
-    	bottom: 0;
-    	width: 100%;
-    	background-color: green;
-    	color: white;
-    	text-align: center;
-}
-</style>
-<div class="footer">
-  <p>Copyright @2018</p>
-</div>
 </body>
 </html>
