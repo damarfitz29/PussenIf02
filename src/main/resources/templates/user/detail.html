@@ -17,23 +17,23 @@
 		$("table").dataTable();
 	});
 </script>
-<title>Detail Golongan</title>
+<title>Detail User</title>
 </head>
 <body>
-	<h1>DATA GOLONGAN</h1>
+	<h1>DATA USER</h1>
 	<table>
 		<thead>
 			<tr>
-				<th>GOLONGAN ID</th>
 				<th>Nama</th>
-				<th>Last Update</th>
+				<th>Level</th>
+				<th>Password</th>
 			</tr>
 		</thead>
 		<tbody>
-			<tr th:each="golongan : ${objekGolongan}">
-				<td th:text="${golongan.golonganId}"> </td>
-				<td th:text="${golongan.Nama}"> </td>
-				<td th:text="${golongan.lastUpdate}"> </td>
+			<tr th:each="user : ${objekUser}">
+				<td th:text="${user.Nama}"> </td>
+				<td th:text="${user.Level}"> </td>
+				<td th:text="${user.Password}"> </td>
 				</tr>
 		</tbody>
 	</table>

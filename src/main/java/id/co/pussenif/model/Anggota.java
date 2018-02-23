@@ -9,9 +9,12 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
@@ -39,76 +42,88 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Anggota.findByAnggotaId", query = "SELECT a FROM Anggota a WHERE a.anggotaId = :anggotaId")
     , @NamedQuery(name = "Anggota.findByNrp", query = "SELECT a FROM Anggota a WHERE a.nrp = :nrp")
     , @NamedQuery(name = "Anggota.findByNama", query = "SELECT a FROM Anggota a WHERE a.nama = :nama")
+    , @NamedQuery(name = "Anggota.findByTanggalLahir", query = "SELECT a FROM Anggota a WHERE a.tanggalLahir = :tanggalLahir")
     , @NamedQuery(name = "Anggota.findByAlamat", query = "SELECT a FROM Anggota a WHERE a.alamat = :alamat")
-    , @NamedQuery(name = "Anggota.findByTglLahir", query = "SELECT a FROM Anggota a WHERE a.tglLahir = :tglLahir")
     , @NamedQuery(name = "Anggota.findByAgama", query = "SELECT a FROM Anggota a WHERE a.agama = :agama")
-    , @NamedQuery(name = "Anggota.findByJenisKelamin", query = "SELECT a FROM Anggota a WHERE a.jenisKelamin = :jenisKelamin")
+    , @NamedQuery(name = "Anggota.findByJnsKelamin", query = "SELECT a FROM Anggota a WHERE a.jnsKelamin = :jnsKelamin")
+    , @NamedQuery(name = "Anggota.findByNoTelp", query = "SELECT a FROM Anggota a WHERE a.noTelp = :noTelp")
     , @NamedQuery(name = "Anggota.findByStatus", query = "SELECT a FROM Anggota a WHERE a.status = :status")
     , @NamedQuery(name = "Anggota.findByTglAktif", query = "SELECT a FROM Anggota a WHERE a.tglAktif = :tglAktif")
-    , @NamedQuery(name = "Anggota.findByUpdateLast", query = "SELECT a FROM Anggota a WHERE a.updateLast = :updateLast")})
+    , @NamedQuery(name = "Anggota.findByLastUpdate", query = "SELECT a FROM Anggota a WHERE a.lastUpdate = :lastUpdate")
+    , @NamedQuery(name = "Anggota.findByIsActive", query = "SELECT a FROM Anggota a WHERE a.isActive = :isActive")})
 public class Anggota implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @NotNull
-    @Column(name = "ANGGOTA_ID")
+    @Column(name = "anggota_id")
     private Integer anggotaId;
     @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 15)
-    @Column(name = "NRP")
-    private String nrp;
+    //@NotNull
+    @Column(name = "nrp")
+    private int nrp;
     @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 50)
-    @Column(name = "NAMA")
+    //@NotNull
+    @Size(min = 1, max = 25)
+    @Column(name = "nama")
     private String nama;
     @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 75)
-    @Column(name = "ALAMAT")
+    //@NotNull
+    @Column(name = "tanggal_lahir")
+    @Temporal(TemporalType.DATE)
+    private Date tanggalLahir;
+    @Basic(optional = false)
+    //@NotNull
+    @Size(min = 1, max = 50)
+    @Column(name = "alamat")
     private String alamat;
     @Basic(optional = false)
-    @NotNull
-    @Column(name = "TGL_LAHIR")
-    @Temporal(TemporalType.DATE)
-    private Date tglLahir;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 15)
-    @Column(name = "AGAMA")
+    //@NotNull
+    @Size(min = 1, max = 10)
+    @Column(name = "agama")
     private String agama;
     @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 20)
-    @Column(name = "JENIS_KELAMIN")
-    private String jenisKelamin;
+    //@NotNull
+    @Size(min = 1, max = 10)
+    @Column(name = "jns_kelamin")
+    private String jnsKelamin;
     @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 20)
-    @Column(name = "STATUS")
+    //@NotNull
+    @Size(min = 1, max = 15)
+    @Column(name = "no_telp")
+    private String noTelp;
+    @Basic(optional = false)
+    //@NotNull
+    @Size(min = 1, max = 10)
+    @Column(name = "status")
     private String status;
-    @Lob
-    @Column(name = "FOTO")
-    private byte[] foto;
     @Basic(optional = false)
-    @NotNull
-    @Column(name = "TGL_AKTIF")
-    @Temporal(TemporalType.TIMESTAMP)
+    //@NotNull
+    @Column(name = "tgl_aktif")
+    @Temporal(TemporalType.DATE)
     private Date tglAktif;
     @Basic(optional = false)
-    @NotNull
-    @Column(name = "UPDATE_LAST")
+    //@NotNull
+    @Lob
+    @Column(name = "foto")
+    private byte[] foto;
+    @Basic(optional = false)
+    //@NotNull
+    @Column(name = "last_update")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date updateLast;
-    @JoinColumn(name = "GOLONGAN_ID", referencedColumnName = "GOLONGAN_ID")
-    @ManyToOne(fetch = FetchType.LAZY)
+    private Date lastUpdate;
+    @Basic(optional = false)
+    //@NotNull
+    @Column(name = "is_active")
+    private int isActive;
+    @JoinColumn(name = "golongan_id", referencedColumnName = "golongan_id")
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Golongan golonganId;
-    @JoinColumn(name = "DIVISI_ID", referencedColumnName = "DIVISI_ID")
-    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "divisi_id", referencedColumnName = "divisi_id")
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Divisi divisiId;
-    @OneToMany(mappedBy = "anggotaId", fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "anggotaId", fetch = FetchType.LAZY)
     private List<Presensi> presensiList;
 
     public Anggota() {
@@ -118,17 +133,20 @@ public class Anggota implements Serializable {
         this.anggotaId = anggotaId;
     }
 
-    public Anggota(Integer anggotaId, String nrp, String nama, String alamat, Date tglLahir, String agama, String jenisKelamin, String status, Date tglAktif, Date updateLast) {
+    public Anggota(Integer anggotaId, int nrp, String nama, Date tanggalLahir, String alamat, String agama, String jnsKelamin, String noTelp, String status, Date tglAktif, byte[] foto, Date lastUpdate, int isActive) {
         this.anggotaId = anggotaId;
         this.nrp = nrp;
         this.nama = nama;
+        this.tanggalLahir = tanggalLahir;
         this.alamat = alamat;
-        this.tglLahir = tglLahir;
         this.agama = agama;
-        this.jenisKelamin = jenisKelamin;
+        this.jnsKelamin = jnsKelamin;
+        this.noTelp = noTelp;
         this.status = status;
         this.tglAktif = tglAktif;
-        this.updateLast = updateLast;
+        this.foto = foto;
+        this.lastUpdate = lastUpdate;
+        this.isActive = isActive;
     }
 
     public Integer getAnggotaId() {
@@ -139,11 +157,11 @@ public class Anggota implements Serializable {
         this.anggotaId = anggotaId;
     }
 
-    public String getNrp() {
+    public int getNrp() {
         return nrp;
     }
 
-    public void setNrp(String nrp) {
+    public void setNrp(int nrp) {
         this.nrp = nrp;
     }
 
@@ -155,20 +173,20 @@ public class Anggota implements Serializable {
         this.nama = nama;
     }
 
+    public Date getTanggalLahir() {
+        return tanggalLahir;
+    }
+
+    public void setTanggalLahir(Date tanggalLahir) {
+        this.tanggalLahir = tanggalLahir;
+    }
+
     public String getAlamat() {
         return alamat;
     }
 
     public void setAlamat(String alamat) {
         this.alamat = alamat;
-    }
-
-    public Date getTglLahir() {
-        return tglLahir;
-    }
-
-    public void setTglLahir(Date tglLahir) {
-        this.tglLahir = tglLahir;
     }
 
     public String getAgama() {
@@ -179,12 +197,20 @@ public class Anggota implements Serializable {
         this.agama = agama;
     }
 
-    public String getJenisKelamin() {
-        return jenisKelamin;
+    public String getJnsKelamin() {
+        return jnsKelamin;
     }
 
-    public void setJenisKelamin(String jenisKelamin) {
-        this.jenisKelamin = jenisKelamin;
+    public void setJnsKelamin(String jnsKelamin) {
+        this.jnsKelamin = jnsKelamin;
+    }
+
+    public String getNoTelp() {
+        return noTelp;
+    }
+
+    public void setNoTelp(String noTelp) {
+        this.noTelp = noTelp;
     }
 
     public String getStatus() {
@@ -195,14 +221,6 @@ public class Anggota implements Serializable {
         this.status = status;
     }
 
-    public byte[] getFoto() {
-        return foto;
-    }
-
-    public void setFoto(byte[] foto) {
-        this.foto = foto;
-    }
-
     public Date getTglAktif() {
         return tglAktif;
     }
@@ -211,12 +229,28 @@ public class Anggota implements Serializable {
         this.tglAktif = tglAktif;
     }
 
-    public Date getUpdateLast() {
-        return updateLast;
+    public byte[] getFoto() {
+        return foto;
     }
 
-    public void setUpdateLast(Date updateLast) {
-        this.updateLast = updateLast;
+    public void setFoto(byte[] foto) {
+        this.foto = foto;
+    }
+
+    public Date getLastUpdate() {
+        return lastUpdate;
+    }
+
+    public void setLastUpdate(Date lastUpdate) {
+        this.lastUpdate = lastUpdate;
+    }
+
+    public int getIsActive() {
+        return isActive;
+    }
+
+    public void setIsActive(int isActive) {
+        this.isActive = isActive;
     }
 
     public Golongan getGolonganId() {
@@ -266,7 +300,7 @@ public class Anggota implements Serializable {
 
     @Override
     public String toString() {
-        return "id.co.pussenif.Anggota[ anggotaId=" + anggotaId + " ]";
+        return "id.co.pussenif.model.Anggota[ anggotaId=" + anggotaId + " ]";
     }
     
 }

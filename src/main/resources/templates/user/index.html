@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1" />
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+	integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+	crossorigin="anonymous" />
+<link rel="stylesheet"
+	href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap4.min.css" />
+
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+	integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+	crossorigin="anonymous"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+	integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+	crossorigin="anonymous"></script>
+
+<script type="text/javascript"
+	src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript"
+	src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap4.min.js"></script>
+
+<script src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+
+<!-- script type="text/javascript" src="../webjars/datatables/js/jquery.dataTables.min.js"></script> -->
+<!-- <script type="text/javascript" src="../webjars/datatables/js/dataTables.bootstrap4.min.js"></script> -->
+<script type="text/javascript">
+	$(document).ready(function() {
+		$("table").dataTable();
+
+		$(".delete").click(function() {
+			var idx = $(".delete").index(this);
+			var id = $(".del:eq(" + idx + ")").val();
+			var url = "/deleteUser";
+			var choice = confirm('Apakah Anda Yakin Akan Di Hapus?');
+			if (choice === true) {
+				$.get(url, {
+					userId : id
+				}).done(function() {
+					window.location.reload();
+				});
+			} else {
+				return false;
+			};
+		});
+	});
+
+	$(document).on('dblclick', 'Nama', function() {
+		alert("bisa")
+		var idx = $(".Nama").index(this);
+		var userId = $(".userId:eq(" + idx + ")").val();
+		var newName = prompt("Ganti Nama User", $(this).text());
+		var url = "/gantiNamaUser";
+		var clicked = $(this);
+		$.get(url, {
+			x : userId,
+			y : newName
+		}).done(function(data) {
+			if (data)
+				$(clicked).text(newName);
+		});
+	});
+</script>
+
+<title>Index User</title>
+</head>
+<body>
+	<div class="topnav">
+		<a class="active" href="#home">Home</a> <a href="#presensi">Presensi</a>
+		<a href="#contact">Contact</a> <a href="#about">About</a>
+	</div>
+	<p th:text="${tanggal}"></p>
+	<h1 style="padding-left: 15px;">DATA USER</h1>
+	<div style="padding-left: 15px;">
+		<button type="button" class="btn btn-sm">
+			<a th:href="@{'/user/add/' }"><i class="fas fa-plus-square"></i></a>
+		</button>
+	</div>
+	<table class="table table-striped col-lg-10">
+		<thead>
+			<tr>
+				<th>Nama</th>
+				<th>Level</th>
+				<th>Action</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="user : ${semuaUser}">
+				<td th:text="${user.nama}" class="Nama"></td>
+				<td th:text="${user.Level}" class="Level"></td>
+				<td><a th:href="@{'/user/detail/' + ${user.userId}}"><i
+						class="fas fa-external-link-alt"></i></a> <a
+					th:href="@{'/user/edit/' + ${user.userId}}"><i
+						class="fas fa-edit"></i></a> <a href="##" class="delete"><i class="fas fa-trash-alt"></i></a> <input
+					type="hidden" class="del" th:value="${user.userId}" /></td>
+			</tr>
+		</tbody>
+	</table>
+	<style>
+.footer {
+	position: fixed;
+	left: 0;
+	bottom: 0;
+	width: 100%;
+	background-color: green;
+	color: white;
+	text-align: center;
+}
+</style>
+	<div class="footer">
+		<p>Copyright @2018</p>
+	</div>
+</body>
+</html>

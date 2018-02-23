@@ -11,6 +11,8 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -20,6 +22,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -32,22 +35,38 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "Presensi.findAll", query = "SELECT p FROM Presensi p")
     , @NamedQuery(name = "Presensi.findByPresensiId", query = "SELECT p FROM Presensi p WHERE p.presensiId = :presensiId")
-    , @NamedQuery(name = "Presensi.findByJam", query = "SELECT p FROM Presensi p WHERE p.jam = :jam")})
+    , @NamedQuery(name = "Presensi.findByNrp", query = "SELECT p FROM Presensi p WHERE p.nrp = :nrp")
+    , @NamedQuery(name = "Presensi.findByNama", query = "SELECT p FROM Presensi p WHERE p.nama = :nama")
+    , @NamedQuery(name = "Presensi.findByJam", query = "SELECT p FROM Presensi p WHERE p.jam = :jam")
+    , @NamedQuery(name = "Presensi.findByIsActive", query = "SELECT p FROM Presensi p WHERE p.isActive = :isActive")})
 public class Presensi implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @NotNull
-    @Column(name = "PRESENSI_ID")
+    @Column(name = "presensi_id")
     private Integer presensiId;
     @Basic(optional = false)
     @NotNull
-    @Column(name = "JAM")
-    @Temporal(TemporalType.TIME)
+    @Column(name = "nrp")
+    private int nrp;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 25)
+    @Column(name = "nama")
+    private String nama;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "jam")
+    @Temporal(TemporalType.TIMESTAMP)
     private Date jam;
-    @JoinColumn(name = "ANGGOTA_ID", referencedColumnName = "ANGGOTA_ID")
-    @ManyToOne(fetch = FetchType.LAZY)
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "is_active")
+    private int isActive;
+    @JoinColumn(name = "anggota_id", referencedColumnName = "anggota_id")
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Anggota anggotaId;
 
     public Presensi() {
@@ -57,9 +76,12 @@ public class Presensi implements Serializable {
         this.presensiId = presensiId;
     }
 
-    public Presensi(Integer presensiId, Date jam) {
+    public Presensi(Integer presensiId, int nrp, String nama, Date jam, int isActive) {
         this.presensiId = presensiId;
+        this.nrp = nrp;
+        this.nama = nama;
         this.jam = jam;
+        this.isActive = isActive;
     }
 
     public Integer getPresensiId() {
@@ -70,12 +92,36 @@ public class Presensi implements Serializable {
         this.presensiId = presensiId;
     }
 
+    public int getNrp() {
+        return nrp;
+    }
+
+    public void setNrp(int nrp) {
+        this.nrp = nrp;
+    }
+
+    public String getNama() {
+        return nama;
+    }
+
+    public void setNama(String nama) {
+        this.nama = nama;
+    }
+
     public Date getJam() {
         return jam;
     }
 
     public void setJam(Date jam) {
         this.jam = jam;
+    }
+
+    public int getIsActive() {
+        return isActive;
+    }
+
+    public void setIsActive(int isActive) {
+        this.isActive = isActive;
     }
 
     public Anggota getAnggotaId() {
@@ -108,7 +154,7 @@ public class Presensi implements Serializable {
 
     @Override
     public String toString() {
-        return "id.co.pussenif.Presensi[ presensiId=" + presensiId + " ]";
+        return "id.co.pussenif.model.Presensi[ presensiId=" + presensiId + " ]";
     }
     
 }

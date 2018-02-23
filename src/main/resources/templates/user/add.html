@@ -15,16 +15,27 @@
 	href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" />
 <link rel="stylesheet" href="/resources/demos/style.css" />
 
-<title>Tambah Data Golongan</title>
+<title>Tambah Data User</title>
 </head>
 <body>
-<h2>Tambah Data Golongan</h2>
-	<form action="#" th:action="@{/golongan/add}" th:object="${golongan}"
+<h2>Tambah Data User</h2>
+	<form action="#" th:action="@{/user/add}" th:object="${user}"
 		method="post">
 		<div class="form-group col-md-3">
-			<label th:for="${golongan.Nama}">Nama</label> <input type="text"
+			<label th:for="${user.Nama}">Nama</label> <input type="text"
 				th:field="*{Nama}" th:errorclass="fieldError" class="form-control"/>
 			<p th:if="${#fields.hasErrors('Nama')}" th:errors="*{Nama}">Nama</p>
+		</div>
+		<div class="form-group col-md-3">
+			<label th:for="${user.Level}">Level</label> <input type="text"
+				th:field="*{Level}" th:errorclass="fieldError" class="form-control"/>
+			<p th:if="${#fields.hasErrors('Level')}" th:errors="*{Level}">Level</p>
+		</div>
+		<div class="form-group col-md-3">
+			<label th:for="${user.Password}">Password</label> <input
+				type="password" th:field="*{Password}" th:errorclass="fieldError" class="form-control" />
+			<p th:if="${#fields.hasErrors('Password')}"
+				th:errors="*{Password}">Password</p>
 		</div>
 		<div>
 			<input type="submit" class="btn btn-primary" value="SIMPAN" />

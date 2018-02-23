@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="ISO-8859-1" />
+<meta charset="ISO-8859-1"/>
 <!-- Bootstrap CSS -->
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" />
@@ -14,23 +14,20 @@
 <link rel="stylesheet"
 	href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" />
 <link rel="stylesheet" href="/resources/demos/style.css" />
-
-<title>Tambah Data Golongan</title>
+<title>Edit Sub Divisi</title>
 </head>
 <body>
-<h2>Tambah Data Golongan</h2>
-	<form action="#" th:action="@{/golongan/add}" th:object="${golongan}"
-		method="post">
+<h2>Ubah Sub Divisi</h2>
+	<form action="#" th:action="@{/subdivisi/edit}" th:object="${subdivisi}" method="post">
 		<div class="form-group col-md-3">
-			<label th:for="${golongan.Nama}">Nama</label> <input type="text"
-				th:field="*{Nama}" th:errorclass="fieldError" class="form-control"/>
+			<label th:for="${subdivisi.Nama}">Nama</label>
+			<input type="text" th:field="*{Nama}" th:errorclass="fieldError" class="form-control"/>
 			<p th:if="${#fields.hasErrors('Nama')}" th:errors="*{Nama}">Nama</p>
 		</div>
 		<div>
-			<input type="submit" class="btn btn-primary" value="SIMPAN" />
+		<input type="submit" value="UBAH"/>
+		<input type="hidden" th:field="*{subdivId}" th:value="*{subdivId}" />
 		</div>
-
 	</form>
-
 </body>
 </html>

@@ -25,18 +25,16 @@
 	<table>
 		<thead>
 			<tr>
-				<th>Divisi ID</th>
 				<th>Nama</th>
-				<th>Level</th>
-				<th>Parent</th>
+				<th>Sub Divisi</th>
+				<th>Last Update</th>
 			</tr>
 		</thead>
 		<tbody>
 			<tr th:each="divisi : ${objekDivisi}">
-				<td th:text="${divisi.divisiId}"> </td>
 				<td th:text="${divisi.Nama}"> </td>
-				<td th:text="${divisi.Level}"> </td>
-				<td th:text="${divisi.parentId}"> </td>
+				<td th:text="${divisi.subdivId}"> </td>
+				<td th:text="${divisi.lastUpdate}"> </td>
 				</tr>
 		</tbody>
 	</table>

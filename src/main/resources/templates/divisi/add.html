@@ -15,33 +15,27 @@
 	href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" />
 <link rel="stylesheet" href="/resources/demos/style.css" />
 
-<title>Tambah Divisi dan Sub Divisi</title>
+<title>Tambah Divisi</title>
 </head>
 <body>
 	<h2>Tambah Data Divisi</h2>
 	<form action="#" th:action="@{/divisi/add}" th:object="${divisi}"
 		method="post">
-		<div class="form-group col-md-1">
-			<label th:for="${divisi.divisiId}">Divisi ID</label> <input
-				type="text" th:field="*{divisiId}" th:errorclass="fieldError" class="form-control" />
-			<p th:if="${#fields.hasErrors('divisiId')}"
-				th:errors="*{divisiId}">Divisi ID</p>
+		<div class="form-group col-md-3">
+			<label th:for="${divisi.nama}">Nama Divisi :</label> <input type="text"
+				th:field="*{nama}" th:errorclass="fieldError" class="form-control"/>
+			<p>Nama Divisi</p>
 		</div>
 		<div class="form-group col-md-3">
-			<label th:for="${divisi.Nama}">Nama Divisi/Sub Divisi</label> <input type="text"
-				th:field="*{Nama}" th:errorclass="fieldError" class="form-control"/>
-			<p th:if="${#fields.hasErrors('Nama')}" th:errors="*{Nama}">Nama Divisi/Sub Divisi</p>
-		</div>
-		<div class="form-group col-md-1">
-			<label th:for="${divisi.Level}">Level</label> <input type="text"
-				th:field="*{Level}" th:errorclass="fieldError" class="form-control"/>
-			<p th:if="${#fields.hasErrors('Level')}" th:errors="*{Level}">Level</p>
-		</div>
-		<div class="form-group col-md-1">
-			<label th:for="${divisi.parentId}">Parent</label> <input type="text"
-				th:field="*{parentId}" th:errorclass="fieldError" class="form-control"/>
-			<p th:if="${#fields.hasErrors('parentId')}" th:errors="*{parentId}">Parent</p>
-		</div>
+						<label th:for="${divisi.subdivId}">Sub Divisi :</label> 
+						<select th:field="*{subdivId.subdivId}" th:errorclass="fieldError"
+							id="inputSubdiv" class="form-control">
+							<div th:each="x : ${getSub}">
+								<option th:value="${x.subdivId}" th:text="${x.nama}"></option>
+							</div>
+						</select>
+						<p th:if="${#fields.hasErrors('subdivId')}" th:errors="*{subdivId}">Sub Divisi</p>
+					</div>
 		<div>
 			<input type="submit" class="btn btn-primary" value="SIMPAN" />
 		</div>

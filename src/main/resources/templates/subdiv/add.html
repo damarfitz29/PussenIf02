@@ -15,14 +15,14 @@
 	href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" />
 <link rel="stylesheet" href="/resources/demos/style.css" />
 
-<title>Tambah Data Golongan</title>
+<title>Tambah Data Sub Divisi</title>
 </head>
 <body>
-<h2>Tambah Data Golongan</h2>
-	<form action="#" th:action="@{/golongan/add}" th:object="${golongan}"
+<h2>Tambah Data Sub Divisi</h2>
+	<form action="#" th:action="@{/subdivisi/add}" th:object="${subdivisi}"
 		method="post">
 		<div class="form-group col-md-3">
-			<label th:for="${golongan.Nama}">Nama</label> <input type="text"
+			<label th:for="${subdivisi.Nama}">Nama</label> <input type="text"
 				th:field="*{Nama}" th:errorclass="fieldError" class="form-control"/>
 			<p th:if="${#fields.hasErrors('Nama')}" th:errors="*{Nama}">Nama</p>
 		</div>

@@ -16,8 +16,6 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -34,24 +32,24 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author WINDOWS 10
  */
 @Entity
-@Table(name = "divisi")
+@Table(name = "subdivisi")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Divisi.findAll", query = "SELECT d FROM Divisi d")
-    , @NamedQuery(name = "Divisi.findByDivisiId", query = "SELECT d FROM Divisi d WHERE d.divisiId = :divisiId")
-    , @NamedQuery(name = "Divisi.findByNama", query = "SELECT d FROM Divisi d WHERE d.nama = :nama")
-    , @NamedQuery(name = "Divisi.findByLastUpdate", query = "SELECT d FROM Divisi d WHERE d.lastUpdate = :lastUpdate")
-    , @NamedQuery(name = "Divisi.findByIsActive", query = "SELECT d FROM Divisi d WHERE d.isActive = :isActive")})
-public class Divisi implements Serializable {
+    @NamedQuery(name = "Subdivisi.findAll", query = "SELECT s FROM Subdivisi s")
+    , @NamedQuery(name = "Subdivisi.findBySubdivId", query = "SELECT s FROM Subdivisi s WHERE s.subdivId = :subdivId")
+    , @NamedQuery(name = "Subdivisi.findByNama", query = "SELECT s FROM Subdivisi s WHERE s.nama = :nama")
+    , @NamedQuery(name = "Subdivisi.findByLastUpdate", query = "SELECT s FROM Subdivisi s WHERE s.lastUpdate = :lastUpdate")
+    , @NamedQuery(name = "Subdivisi.findByIsActive", query = "SELECT s FROM Subdivisi s WHERE s.isActive = :isActive")})
+public class Subdivisi implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "divisi_id")
-    private Integer divisiId;
+    @Column(name = "subdiv_id")
+    private Integer subdivId;
     @Basic(optional = false)
-    //@NotNull
+//    @NotNull
     @Size(min = 1, max = 25)
     @Column(name = "nama")
     private String nama;
@@ -64,32 +62,29 @@ public class Divisi implements Serializable {
     //@NotNull
     @Column(name = "is_active")
     private int isActive;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "divisiId", fetch = FetchType.LAZY)
-    private List<Anggota> anggotaList;
-    @JoinColumn(name = "subdiv_id", referencedColumnName = "subdiv_id")
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private Subdivisi subdivId;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "subdivId", fetch = FetchType.LAZY)
+    private List<Divisi> divisiList;
 
-    public Divisi() {
+    public Subdivisi() {
     }
 
-    public Divisi(Integer divisiId) {
-        this.divisiId = divisiId;
+    public Subdivisi(Integer subdivId) {
+        this.subdivId = subdivId;
     }
 
-    public Divisi(Integer divisiId, String nama, Date lastUpdate, int isActive) {
-        this.divisiId = divisiId;
+    public Subdivisi(Integer subdivId, String nama, Date lastUpdate, int isActive) {
+        this.subdivId = subdivId;
         this.nama = nama;
         this.lastUpdate = lastUpdate;
         this.isActive = isActive;
     }
 
-    public Integer getDivisiId() {
-        return divisiId;
+    public Integer getSubdivId() {
+        return subdivId;
     }
 
-    public void setDivisiId(Integer divisiId) {
-        this.divisiId = divisiId;
+    public void setSubdivId(Integer subdivId) {
+        this.subdivId = subdivId;
     }
 
     public String getNama() {
@@ -117,37 +112,29 @@ public class Divisi implements Serializable {
     }
 
     @XmlTransient
-    public List<Anggota> getAnggotaList() {
-        return anggotaList;
+    public List<Divisi> getDivisiList() {
+        return divisiList;
     }
 
-    public void setAnggotaList(List<Anggota> anggotaList) {
-        this.anggotaList = anggotaList;
-    }
-
-    public Subdivisi getSubdivId() {
-        return subdivId;
-    }
-
-    public void setSubdivId(Subdivisi subdivId) {
-        this.subdivId = subdivId;
+    public void setDivisiList(List<Divisi> divisiList) {
+        this.divisiList = divisiList;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (divisiId != null ? divisiId.hashCode() : 0);
+        hash += (subdivId != null ? subdivId.hashCode() : 0);
         return hash;
     }
 
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Divisi)) {
+        if (!(object instanceof Subdivisi)) {
             return false;
         }
-        Divisi other = (Divisi) object;
-        if ((this.divisiId == null && other.divisiId != null) || (this.divisiId != null && !this.divisiId.equals(other.divisiId))) {
+        Subdivisi other = (Subdivisi) object;
+        if ((this.subdivId == null && other.subdivId != null) || (this.subdivId != null && !this.subdivId.equals(other.subdivId))) {
             return false;
         }
         return true;
@@ -155,7 +142,7 @@ public class Divisi implements Serializable {
 
     @Override
     public String toString() {
-        return "id.co.pussenif.model.Divisi[ divisiId=" + divisiId + " ]";
+        return "id.co.pussenif.model.Subdivisi[ subdivId=" + subdivId + " ]";
     }
     
 }

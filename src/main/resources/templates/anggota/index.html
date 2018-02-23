@@ -2,26 +2,55 @@
 <html>
 <head>
 <meta charset="ISO-8859-1"/>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" 
+	integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"/>
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap4.min.css"/>	
+
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+<script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap4.min.js"></script>
+
+<script src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+
+<!-- script type="text/javascript" src="../webjars/datatables/js/jquery.dataTables.min.js"></script> -->
+<!-- <script type="text/javascript" src="../webjars/datatables/js/dataTables.bootstrap4.min.js"></script> -->
+<script type="text/javascript">
+	$(document).ready(function(){
+		$("table").dataTable();
+	});
+</script>
 <title>Index Anggota</title>
 </head>
 <body>
+<div class="topnav">
+  <a class="active" href="#home">Home</a>
+  <a href="#presensi">Presensi</a>
+  <a href="#contact">Contact</a>
+  <a href="#about">About</a>
+</div>
 	<p th:text="${tanggal}"> </p>
-	<h1>Daftar Anggota</h1>
-	<table>
+	<h2 style="padding-left:15px;">Data Anggota</h2>
+	<div style="padding-left:15px;">
+		<button type="button" class="btn btn-sm"><a th:href="@{'/anggota/add/' }"><i class="fas fa-plus-square"></i></a></button>
+	</div>
+	<table class="table table-striped col-lg-10">
 		<thead>
 			<tr>
 				<th>Nama</th>
 				<th>Golongan</th>
 				<th>Divisi</th>
 				<th>Status</th>
-				<th>Details</th>
+				<th>Action</th>
 			</tr>
 		</thead>
 		<tbody>
 			<tr th:each="anggota : ${semuaAnggota}">
 				<td th:text="${anggota.Nama}" class="Nama"> </td>
-				<td th:text="${anggota.GolonganId}" class="GolonganId"> </td>
-				<td th:text="${anggota.DivisiId}" class="DivisiId"> </td>
+				<td th:text="${anggota.GolonganId.nama}" class="GolonganId"> </td>
+				<td th:text="${anggota.DivisiId.nama}" class="DivisiId"> </td>
 				<td th:text="${anggota.Status}" class="Status"> </td>
 				<td>
 					<a th:href="@{'/anggota/detail/' + ${anggota.anggotaId}}">Detail</a>

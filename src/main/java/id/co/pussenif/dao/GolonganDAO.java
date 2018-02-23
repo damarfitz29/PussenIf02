@@ -21,7 +21,7 @@ public class GolonganDAO {
 	
 	public List<Golongan> getAllGolongan(){
 		return factory.createEntityManager()
-				.createQuery("from Golongan")
+				.createQuery("from Golongan where isActive=0")
 				.getResultList();
 	}
 	
@@ -61,6 +61,8 @@ public class GolonganDAO {
 			transaksi.begin();
 			Golongan existingGolongan = (Golongan) eManager.find(Golongan.class, updatedGolongan.getGolonganId());
 			existingGolongan.setNama(updatedGolongan.getNama());
+			existingGolongan.setLastUpdate(new Date());
+			existingGolongan.setIsActive(updatedGolongan.getIsActive());
 			transaksi.commit();
 		}catch(Exception ex) {
 			transaksi.rollback();

@@ -14,8 +14,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import id.co.pussenif.dao.DivisiDAO;
+import id.co.pussenif.dao.SubDivDAO;
 import id.co.pussenif.model.Divisi;
 import id.co.pussenif.model.Golongan;
+import id.co.pussenif.model.Subdivisi;
 
 @Controller
 @RequestMapping("divisi")
@@ -23,6 +25,8 @@ public class DivisiController {
 	
 	@Autowired
 	private DivisiDAO divisiDAO;
+	@Autowired
+	private SubDivDAO subdivDAO;
 	
 	@GetMapping("/index")
 	public String index(Model model) {
@@ -42,6 +46,7 @@ public class DivisiController {
 	@GetMapping("/add")
 	public String add(Model model) {
 		model.addAttribute("divisi", new Divisi());
+		model.addAttribute("getSub", subdivDAO.getAllSubdivisi());
 		return "divisi/add";
 	}
 	

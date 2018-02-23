@@ -21,7 +21,7 @@ public class AnggotaDAO {
 	
 	public List<Anggota> getAllAnggota(){
 		return factory.createEntityManager()
-				.createQuery("from Anggota")
+				.createQuery("from Anggota where isActive=0 ")
 				.getResultList();
 	}
 	
@@ -39,7 +39,7 @@ public class AnggotaDAO {
 		try {
 			transaksi = eManager.getTransaction();
 			transaksi.begin();
-			eManager.persist(new Date());
+			anggota.setLastUpdate(new Date());
 			eManager.persist(anggota);
 			transaksi.commit();
 		}catch(Exception ex) {
@@ -63,15 +63,16 @@ public class AnggotaDAO {
 			existingAnggota.setNrp(updatedAnggota.getNrp());
 			existingAnggota.setNama(updatedAnggota.getNama());
 			existingAnggota.setAlamat(updatedAnggota.getAlamat());
-			existingAnggota.setTglLahir(updatedAnggota.getTglLahir());
+			existingAnggota.setTanggalLahir(updatedAnggota.getTanggalLahir());
 			existingAnggota.setGolonganId(updatedAnggota.getGolonganId());
 			existingAnggota.setDivisiId(updatedAnggota.getDivisiId());
 			existingAnggota.setAgama(updatedAnggota.getAgama());
-			existingAnggota.setJenisKelamin(updatedAnggota.getJenisKelamin());
+			existingAnggota.setJnsKelamin(updatedAnggota.getJnsKelamin());
 			existingAnggota.setStatus(updatedAnggota.getStatus());
-			existingAnggota.setFoto(updatedAnggota.getFoto());
 			existingAnggota.setTglAktif(updatedAnggota.getTglAktif());
-			existingAnggota.setUpdateLast(new Date());
+			existingAnggota.setFoto(updatedAnggota.getFoto());
+			existingAnggota.setLastUpdate(new Date());
+			existingAnggota.setIsActive(updatedAnggota.getIsActive());
 			transaksi.commit();
 		}catch(Exception ex) {
 			transaksi.rollback();

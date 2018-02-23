@@ -24,10 +24,10 @@
 		$(".hapus").click(function(){
 			var idx = $(".hapus").index(this);
 			var id = $(".cas:eq(" +idx+ ")").val();
-		    var url = "/deleteGol";
+		    var url = "/deleteSub";
 		    var choice = confirm('Apakah Anda Yakin Akan Di Hapus?');
 		    if(choice == true){
-		    	$.get(url, {golonganId : id}).done(function(){
+		    	$.get(url, {subdivId : id}).done(function(){
 		    		location.reload();
 		    	});
 		    } else {
@@ -51,7 +51,7 @@
 	
 </script>
 
-<title>Index Golongan</title>
+<title>Index Sub Divisi</title>
 </head>
 <body>
 <div class="topnav">
@@ -61,10 +61,9 @@
   <a href="#about">About</a>
 </div>
 	<p th:text="${tanggal}"> </p>
-	<h1 style="padding-left:15px;">DATA GOLONGAN</h1>
+	<h1 style="padding-left:15px;">Data Sub Divisi</h1>
 	<div style="padding-left:15px;">
-		<button type="button" class="btn btn-sm">
-		<a th:href="@{'/golongan/add/' }"><i class="fas fa-plus-square"></i></a></button>
+		<button type="button" class="btn btn-sm"><a th:href="@{'/subdivisi/add/' }"><i class="fas fa-plus-square"></i></a></button>
 	</div>
 	<table class="table table-striped col-lg-10">
 		<thead>
@@ -74,13 +73,12 @@
 			</tr>
 		</thead>
 		<tbody>
-			<tr th:each="golongan : ${semuaGolongan}">
-				<td th:text="${golongan.Nama}" class="Nama"> </td>
+			<tr th:each="subdivisi : ${semuaSubdivisi}">
+				<td th:text="${subdivisi.Nama}" class="Nama"> </td>
 				<td>
-					<a th:href="@{'/golongan/detail/' + ${golongan.golonganId}}"><i class="fas fa-external-link-alt"></i></a>
-					<a th:href="@{'/golongan/edit/' + ${golongan.golonganId}}"><i class="fas fa-edit"></i></a>	
+					<a th:href="@{'/subdivisi/edit/' + ${subdivisi.subdivId}}"><i class="fas fa-edit"></i></a>	
 					<a href="##" class="hapus"><i class="fas fa-trash-alt"></i></a>	
-					<input type="hidden" class="cas" th:value="${golongan.golonganId}"/>				
+					<input type="hidden" class="cas" th:value="${subdivisi.subdivId}"/>			
 				</td>
 				</tr>
 		</tbody>

@@ -10,43 +10,41 @@ import javax.persistence.EntityTransaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import id.co.pussenif.model.Anggota;
-import id.co.pussenif.model.Divisi;
-import id.co.pussenif.model.Subdivisi;
+import id.co.pussenif.model.User;
 
 
 
 @Service
-public class DivisiDAO {
+public class UserDAO {
 	
 	@Autowired
 	private EntityManagerFactory factory;
 	
-	public List<Divisi> getAllDivisi(){
+	public List<User> getAllUser(){
 		return factory.createEntityManager()
-				.createQuery("from Divisi where isActive=0")
+				.createQuery("from User where isActive = 0")
 				.getResultList();
 	}
 	
-	public Divisi getDivisi(short id) {
-		return (Divisi) factory.createEntityManager()
-				.createQuery("from Divisi where divisiId=" + id)
+	public User getUser(short id) {
+		return (User) factory.createEntityManager()
+				.createQuery("from User where userId=" + id)
 				.getSingleResult();
 		
 	}
 	
-	public boolean addDivisi(Divisi divisi) {
+	public boolean addUser(User user) {
 		EntityManager eManager = factory.createEntityManager();
 		EntityTransaction transaksi = null;
 		boolean isSuccess = true;
 		try {
 			transaksi = eManager.getTransaction();
 			transaksi.begin();
-			divisi.setLastUpdate(new Date());
-			eManager.persist(divisi);
+			//eManager.persist(new Date());
+			user.setIsActive(0);
+			eManager.persist(user);
 			transaksi.commit();
 		}catch(Exception ex) {
-			ex.printStackTrace();
 			transaksi.rollback();
 			isSuccess = false;
 			//log.error("DAO Error", ex.getMessage());
@@ -56,26 +54,26 @@ public class DivisiDAO {
 			return isSuccess;
 	}
 	
-	public boolean editDivisi(Divisi updatedDivisi) {
+	public boolean editUser(User updatedUser) {
 		EntityManager eManager = factory.createEntityManager();
 		EntityTransaction transaksi = null;
 		boolean isSuccess = true;
 		try {
 			transaksi = eManager.getTransaction();
 			transaksi.begin();
-			Divisi existingDivisi = (Divisi) eManager.find(Divisi.class, updatedDivisi.getDivisiId());
-			existingDivisi.setNama(updatedDivisi.getNama());
-			existingDivisi.setSubdivId(updatedDivisi.getSubdivId());
-			existingDivisi.setLastUpdate(new Date());
-			existingDivisi.setIsActive(updatedDivisi.getIsActive());
+			User existingUser = (User) eManager.find(User.class, updatedUser.getUserId());
+			existingUser.setNama(updatedUser.getNama());
+			existingUser.setLevel(updatedUser.getLevel());
+			existingUser.setPassword(updatedUser.getPassword());
+			existingUser.setIsActive(updatedUser.getIsActive());
 			transaksi.commit();
 		}catch(Exception ex) {
 			transaksi.rollback();
+			ex.printStackTrace();
 			isSuccess = false;
 			
 		}
 			return isSuccess;
 	}
-
 
 }
