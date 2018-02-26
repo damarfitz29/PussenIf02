@@ -65,7 +65,9 @@ public class AnggotaController {
 	
 	@GetMapping("/edit/{anggotaId}")
 	public String editForm(Model model, @PathVariable("anggotaId") short id) {
-		model.addAttribute("actor", anggotaDAO.getAnggota(id));	
+		model.addAttribute("anggota", anggotaDAO.getAnggota(id));	
+		model.addAttribute("gol1", golonganDAO.getAllGolongan());
+		model.addAttribute("div1", divisiDAO.getAllDivisi());
 		return "anggota/edit";	
 	}
 	

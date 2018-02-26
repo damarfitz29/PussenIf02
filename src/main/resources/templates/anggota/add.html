@@ -38,12 +38,12 @@
 						<input type="text" th:field="*{nama}" th:errorclass="fieldError" class="form-control" id="inputNama" placeholder="Nama Lengkap" />
 						<p th:if="${#fields.hasErrors('nama')}" th:errors="*{nama}">Nama</p>
 					</div>
-					<div class="form-group col-md-6">
+					<div class="form-group col-md-5">
 						<label th:for="${anggota.alamat}">Alamat :</label> 
 						<input type="text" th:field="*{alamat}" th:errorclass="fieldError" class="form-control" id="inputAlamat" placeholder="ex: Jalan S. Parman Kav.7-9 No.12B Jakarta Barat" />
 						<p th:if="${#fields.hasErrors('alamat')}" th:errors="*{alamat}">Alamat</p>
 					</div>
-					<div class="form-group col-md-4">
+					<div class="form-group col-md-3">
 						<label th:for="${anggota.tanggalLahir}">Tanggal Lahir :</label> <input
 							type="text" th:field="*{tanggalLahir}" th:errorclass="fieldError" class="form-control" id="datepicker"
 							placeholder="Tanggal Lahir" />
@@ -89,6 +89,11 @@
 						<input type="radio" name="jnsKelamin" th:field="*{jnsKelamin}" value="perempuan" style="margin-left:50px;"/> Perempuan
 					
 						</div>
+					</div>
+					<div class="form-group col-md-3">
+						<label th:for="${anggota.noTelp}">No Telp :</label> 
+						<input type="text" th:field="*{noTelp}" th:errorclass="fieldError" class="form-control" id="inputNama" placeholder="No Telepon" />
+						<p th:if="${#fields.hasErrors('noTelp')}" th:errors="*{noTelp}">No Telp</p>
 					</div>	
 					<div class="form-group col-md-4">
 						<label th:for="${anggota.status}">Status :</label> <select th:field="*{status}" th:errorclass="fieldError"
@@ -101,7 +106,7 @@
 						</select>
 						<p th:if="${#fields.hasErrors('status')}" th:errors="*{status}">Status</p>
 					</div>		
-					<div class="form-group col-md-4">
+					<div class="form-group col-md-3">
 						<label th:for="${anggota.tglAktif}">Tanggal Aktif :</label> <input
 							type="text" th:field="*{tglAktif}" th:errorclass="fieldError" class="form-control" id="datepicker1"
 							placeholder="Tanggal Aktif" />
@@ -130,34 +135,10 @@
 	});
 	
 	$( document ).ready(function() {
-	    $("#datepicker").datepicker({ 
-	    	dateFormat : "yy-mm-dd"
-	    });
+	    $("#datepicker").datepicker();
 	    
-	    var dateFormat = $( "#datepicker" ).datepicker( "option", "dateFormat" );
-	    
-	 // Setter
-	 	$( "#datepicker" ).datepicker( "option", "dateFormat", "yy-mm-dd" );
-	 
-	    $("#datepicker").on("change", function () {
-	        var fromdate = $(this).val();
-	        alert(fromdate);
-	    });
-	    
-	    $("#datepicker1").datepicker({ 
-	    	dateFormat : "yy-dd-mm"
-	    });
-	    
-	    var dateFormat = $( "#datepicker1" ).datepicker( "option", "dateFormat" );
-	    
-	 // Setter
-	 	$( "#datepicker1" ).datepicker( "option", "dateFormat", "yy-dd-mm" );
-	 
-	    $("#datepicker1").on("change", function () {
-	        var fromdate = $(this).val();
-	        alert(fromdate);
-	    });
-	  } );
+	    $("#datepicker1").datepicker();
+	  });
 </script>
 </body>
 </html>

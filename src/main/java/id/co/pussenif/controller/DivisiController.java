@@ -62,7 +62,8 @@ public class DivisiController {
 	
 	@GetMapping("/edit/{divisiId}")
 	public String editForm(Model model, @PathVariable("divisiId") short id) {
-		model.addAttribute("divisi", divisiDAO.getDivisi(id));	
+		model.addAttribute("divisi", divisiDAO.getDivisi(id));
+		model.addAttribute("getSub1", subdivDAO.getAllSubdivisi());
 		return "divisi/edit";	
 	}
 	

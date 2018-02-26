@@ -10,6 +10,7 @@ import id.co.pussenif.dao.DivisiDAO;
 import id.co.pussenif.dao.GolonganDAO;
 import id.co.pussenif.dao.SubDivDAO;
 import id.co.pussenif.dao.UserDAO;
+import id.co.pussenif.model.Divisi;
 import id.co.pussenif.model.Golongan;
 import id.co.pussenif.model.Subdivisi;
 import id.co.pussenif.model.User;
@@ -63,13 +64,14 @@ public class BackgroundHandler {
 		return subdivDAO.editSubdivisi(subdiv);
 	}
 	
-	@GetMapping("/tampilSubdiv")
-	public boolean tampilSubdiv(
-			@RequestParam("subdivId") short id){
+	@GetMapping("/deleteDiv")
+	public boolean deleteDiv(
+			@RequestParam("divisiId") short id) {
 		
-		Subdivisi sd = subdivDAO.getSubdivisi(id);
-		sd.getSubdivId();
-		return subdivDAO.addSubdivisi(sd);
+		Divisi div = divisiDAO.getDivisi(id);
+		div.setIsActive(1);
+		return divisiDAO.editDivisi(div);
 	}
+	
 	
 }

@@ -2,30 +2,23 @@
 <html>
 <head>
 <meta charset="ISO-8859-1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Edit Anggota</title>
 <!-- Bootstrap CSS -->
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"/>
+ 
 
 <!-- jQuery first, then Tether, then Bootstrap JS. -->
-<script src="http://code.jquery.com/jquery-2.2.4.js"></script>
+<!-- <script src="http://code.jquery.com/jquery-2.2.4.js"></script>  -->
+
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"></script>
-<link rel="stylesheet"
-	href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" />
-<link rel="stylesheet" href="/resources/demos/style.css" />
-<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<script>
-	$(function() {
-		$("#accordion").accordion();
-		var spinner1 = $("#spinner1").spinner();
-		var spinner2 = $("#spinner2").spinner();
-		var spinner3 = $("#spinner3").spinner();
-	});
-</script>
-<title>Edit Anggota</title>
 </head>
 <body>
 	<div id="accordion">
@@ -33,13 +26,8 @@
 		<div>
 			<form action="#" th:action="@{/anggota/edit}" th:object="${anggota}" method="post">
 				<div class="form-row">
-					<div class="form-group col-md-1">
-						<label th:for="${anggota.anggotaId}">Anggota ID :</label> 
-						<input type="text" th:field="*{anggotaId}" th:errorclass="fieldError" class="form-control" id="inputID" placeholder="ID" />
-						<p th:if="${#fields.hasErrors('anggotaId')}" th:errors="*{anggotaId}">Anggota ID</p>
-					</div>
 					<div class="form-group col-md-3">
-						<label th:for="${anggota.Nrp}">NRP/NIK :</label> 
+						<label th:for="${anggota.nrp}">NRP/NIK :</label> 
 						<input type="text" th:field="*{nrp}" th:errorclass="fieldError" class="form-control" id="inputNrp" placeholder="NRP/NIK" />
 						<p th:if="${#fields.hasErrors('nrp')}" th:errors="*{nrp}">NRP/NIK</p>
 					</div>
@@ -54,21 +42,30 @@
 						<p th:if="${#fields.hasErrors('alamat')}" th:errors="*{alamat}">Alamat</p>
 					</div>
 					<div class="form-group col-md-4">
-						<label th:for="${anggota.tglLahir}">Tanggal Lahir :</label> <input
-							type="date" th:field="*{tglLahir}" th:errorclass="fieldError" class="form-control" id="inputTanggalLahir"
+						<label th:for="${anggota.tanggalLahir}">Tanggal Lahir :</label> <input
+							type="text" th:field="*{tanggalLahir}" th:errorclass="fieldError" class="form-control" id="datepicker2"
 							placeholder="Tanggal Lahir" />
-						<p th:if="${#fields.hasErrors('tglLahir')}" th:errors="*{tglLahir}">Tanggal Lahir</p>
+						<p th:if="${#fields.hasErrors('tanggalLahir')}" th:errors="*{tanggalLahir}">Tanggal Lahir</p>
 					</div>
 					<div class="form-group col-md-4">
-						<label th:for="${anggota.golonganId}">Golongan :</label> <select th:field="*{anggotaId}" th:errorclass="fieldError" id="inputGolongan"
-							class="form-control">
-							<option value="">Pilih...</option>
-							<option value="PNS">PNS</option>
-							<option value="Jendral">Jendral</option>
-							<option value="Tamtama">Tamtama</option>
-							<option value="Bintara">Bintara</option>
+						<label th:for="${anggota.golonganId}">Golongan :</label> 
+						<select th:field="*{golonganId.golonganId}" th:errorclass="fieldError" id="inputGolongan"
+							class="form-control" >
+							<div th:each="y : ${gol1}">
+							<option th:value="${y.golonganId}" th:text="${y.nama}"></option>
+							</div>
 						</select>
 						<p th:if="${#fields.hasErrors('golonganId')}" th:errors="*{golonganId}">Golongan</p>
+					</div>
+					<div class="form-group col-md-4">
+						<label th:for="${anggota.divisiId}">Divisi :</label> 
+						<select th:field="*{divisiId.divisiId}" th:errorclass="fieldError" id="inputDivisi"
+							class="form-control" >
+							<div th:each="z : ${div1}">
+							<option th:value="${z.divisiId}" th:text="${z.nama}"></option>
+							</div>
+						</select>
+						<p th:if="${#fields.hasErrors('divisiId')}" th:errors="*{divisiId}">Divisi</p>
 					</div>
 					<div class="form-group col-md-4">
 						<label th:for="${anggota.agama}">Agama :</label> <select th:field="*{agama}" th:errorclass="fieldError" id="inputAgama"
@@ -83,15 +80,19 @@
 						</select>
 						<p th:if="${#fields.hasErrors('agama')}" th:errors="*{agama}">Agama</p>
 					</div>
+					<div class="form-group" style="margin-top: 15px;">
+						<label class="col-sm-2 cobtrol-label">Jenis Kelamin:</label>
+						<div class="col-sm-10">
+						<input type="radio" name="jnsKelamin" th:field="*{jnsKelamin}" value="laki-laki" checked="checked" /> Laki - Laki
+						<input type="radio" name="jnsKelamin" th:field="*{jnsKelamin}" value="perempuan" style="margin-left:50px;"/> Perempuan
+					
+						</div>
+					</div>
 					<div class="form-group col-md-4">
-						<label th:for="${anggota.jenisKelamin}">Jenis Kelamin :</label> <select th:field="*{jenisKelamin}" th:errorclass="fieldError"
-							id="inputGender" class="form-control">
-							<option value="">Pilih...</option>
-							<option value="Laki-Laki">Laki-laki</option>
-							<option value="Perempuan">Perempuan</option>
-						</select>
-						<p th:if="${#fields.hasErrors('jenisKelamin')}" th:errors="*{jenisKelamin}">Jenis Kelamin</p>
-					</div>	
+						<label th:for="${anggota.noTelp}">No Telp :</label> 
+						<input type="text" th:field="*{noTelp}" th:errorclass="fieldError" class="form-control" id="inputNama" placeholder="No Telepon" />
+						<p th:if="${#fields.hasErrors('noTelp')}" th:errors="*{noTelp}">No Telp</p>
+					</div>
 					<div class="form-group col-md-4">
 						<label th:for="${anggota.status}">Status :</label> <select th:field="*{status}" th:errorclass="fieldError"
 							id="inputStatus" class="form-control">
@@ -105,7 +106,7 @@
 					</div>		
 					<div class="form-group col-md-4">
 						<label th:for="${anggota.tglAktif}">Tanggal Aktif :</label> <input
-							type="date" th:field="*{tglAktif}" th:errorclass="fieldError" class="form-control" id="inputTanggalAktif"
+							type="text" th:field="*{tglAktif}" th:errorclass="fieldError" class="form-control" id="datepicker3"
 							placeholder="Tanggal Aktif" />
 						<p th:if="${#fields.hasErrors('tglAktif')}" th:errors="*{tglAktif}">Tanggal Aktif</p>
 					</div>		
@@ -116,9 +117,23 @@
 						id="exampleFormControlFile1" />
 					<p th:if="${#fields.hasErrors('foto')}" th:errors="*{foto}">Foto</p>
 				</div>
+				<button type="submit" formmethod="post" class="btn btn-primary" value="Ubah">Ubah</button>
 			</form>
-			<button type="submit" class="btn btn-primary" value="Ubah">Ubah</button>
 		</div>
 		</div>
+<script>
+	$(function() {
+		$("#accordion").accordion();
+		var spinner1 = $("#spinner1").spinner();
+		var spinner2 = $("#spinner2").spinner();
+		var spinner3 = $("#spinner3").spinner();
+	});
+	
+	$( document ).ready(function() {
+	    $("#datepicker2").datepicker();
+	    
+	    $("#datepicker3").datepicker();
+	  });
+</script>		
 </body>
 </html>

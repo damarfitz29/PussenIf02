@@ -2,10 +2,31 @@
 <html>
 <head>
 <meta charset="ISO-8859-1"/>
-<title>Ddetail Anggota</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" 
+	integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"/>
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap4.min.css"/>	
+
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+<script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap4.min.js"></script>
+
+<script src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+
+<!-- script type="text/javascript" src="../webjars/datatables/js/jquery.dataTables.min.js"></script> -->
+<!-- <script type="text/javascript" src="../webjars/datatables/js/dataTables.bootstrap4.min.js"></script> -->
+<script type="text/javascript">
+	$(document).ready(function(){
+		$("table").dataTable();
+	});
+</script>
+<title>Detail Anggota</title>
 </head>
 <body>
-	<table>
+<h2>DATA ANGGOTA</h2>
+	<table class="table table-striped col-lg-10">
 		<thead>
 			<tr>
 				<th>NRP</th>
@@ -16,26 +37,28 @@
 				<th>Divisi</th>
 				<th>Agama</th>
 				<th>Jenis Kelamin</th>
+				<th>No Telepeon</th>
 				<th>Status</th>
-				<th>Foto</th>
 				<th>Tanggal Aktif</th>
+				<th>Foto</th>
 				<th>Update Terakhir</th>
 			</tr>
 		</thead>
 		<tbody>
 			<tr th:each="anggota : ${objekAnggota}">
-				<td th:text="${anggota.NRP}"> </td>
+				<td th:text="${anggota.Nrp}"> </td>
 				<td th:text="${anggota.Nama}"> </td>
 				<td th:text="${anggota.Alamat}"> </td>
 				<td th:text="${anggota.TanggalLahir}"> </td>
-				<td th:text="${anggota.AnggotaId}"> </td>
-				<td th:text="${anggota.DivisiId}"> </td>
+				<td th:text="${anggota.golonganId.golonganId}"> </td>
+				<td th:text="${anggota.divisiId.divisiId}"> </td>
 				<td th:text="${anggota.Agama}"> </td>
-				<td th:text="${anggota.JenisKelamin}"> </td>
+				<td th:text="${anggota.jnsKelamin}"> </td>
+				<td th:text="${anggota.noTelp}"> </td>
 				<td th:text="${anggota.Status}"> </td>
+				<td th:text="${anggota.tglAktif}"> </td>
 				<td th:text="${anggota.Foto}"> </td>
-				<td th:text="${anggota.Tanggal_Aktif}"> </td>
-				<td th:text="${anggota.Update Terakhir}"> </td>
+				<td th:text="${anggota.lastUpdate}"> </td>
 				</tr>
 		</tbody>
 	</table>

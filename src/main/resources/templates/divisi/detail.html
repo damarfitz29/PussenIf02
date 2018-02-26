@@ -22,7 +22,7 @@
 </head>
 <body>
 	<h1>DATA DIVISI</h1>
-	<table>
+	<table class="table table-striped col-lg-10">
 		<thead>
 			<tr>
 				<th>Nama</th>
@@ -33,7 +33,7 @@
 		<tbody>
 			<tr th:each="divisi : ${objekDivisi}">
 				<td th:text="${divisi.Nama}"> </td>
-				<td th:text="${divisi.subdivId}"> </td>
+				<td th:text="${divisi.subdivId.nama}"> </td>
 				<td th:text="${divisi.lastUpdate}"> </td>
 				</tr>
 		</tbody>

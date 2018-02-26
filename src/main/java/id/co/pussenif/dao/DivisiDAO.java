@@ -39,6 +39,7 @@ public class DivisiDAO {
 		EntityManager eManager = factory.createEntityManager();
 		EntityTransaction transaksi = null;
 		boolean isSuccess = true;
+		
 		try {
 			transaksi = eManager.getTransaction();
 			transaksi.begin();
@@ -70,6 +71,7 @@ public class DivisiDAO {
 			existingDivisi.setIsActive(updatedDivisi.getIsActive());
 			transaksi.commit();
 		}catch(Exception ex) {
+			ex.printStackTrace();
 			transaksi.rollback();
 			isSuccess = false;
 			

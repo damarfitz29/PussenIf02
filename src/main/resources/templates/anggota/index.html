@@ -52,12 +52,12 @@
 				<td th:text="${anggota.GolonganId.nama}" class="GolonganId"> </td>
 				<td th:text="${anggota.DivisiId.nama}" class="DivisiId"> </td>
 				<td th:text="${anggota.Status}" class="Status"> </td>
-				<td>
-					<a th:href="@{'/anggota/detail/' + ${anggota.anggotaId}}">Detail</a>
-					<a th:href="@{'/anggota/edit/' + ${anggota.anggotaId}}">Edit</a>
-					<a th:href="@{'/anggota/delete/' + ${anggota.anggotaId}}">Delete</a>	
-					<!-- <input type="hidden" class="actorIds" th:value="${actor.actorId}"/>	 -->		
-				</td>
+				<td><a th:href="@{'/anggota/detail/' + ${anggota.anggotaId}}"><i
+						class="fas fa-external-link-alt"></i></a>
+						<a th:href="@{'/anggota/edit/' + ${anggota.anggotaId}}"><i
+						class="fas fa-edit"></i></a> 
+						<a href="##" class="delete"><i class="fas fa-trash-alt"></i></a>
+						<input type="hidden" class="del" th:value="${anggota.anggotaId}" /></td>
 				</tr>
 		</tbody>
 	</table>

@@ -27,7 +27,7 @@ public class AnggotaDAO {
 	
 	public Anggota getAnggota(short id) {
 		return (Anggota) factory.createEntityManager()
-				.createQuery("from Anggota where actorId=" + id)
+				.createQuery("from Anggota where anggotaId=" + id)
 				.getSingleResult();
 		
 	}

@@ -20,17 +20,22 @@
 <h2>Ubah Divisi</h2>
 	<form action="#" th:action="@{/divisi/edit}" th:object="${divisi}" method="post">
 		<div class="form-group col-md-3">
-			<label th:for="${divisi.Nama}">Nama</label>
-			<input type="text" th:field="*{Nama}" th:errorclass="fieldError" class="form-control"/>
-			<p th:if="${#fields.hasErrors('Nama')}" th:errors="*{Nama}">Nama</p>
+			<label th:for="${divisi.nama}">Nama</label>
+			<input type="text" th:field="*{nama}" th:errorclass="fieldError" class="form-control"/>
+			<p th:if="${#fields.hasErrors('nama')}" th:errors="*{nama}">Nama</p>
 		</div>
 		<div class="form-group col-md-3">
-			<label th:for="${divisi.subdivId}">Sub Divisi</label>
-			<input type="text" th:field="*{subdivId}" th:errorclass="fieldError" class="form-control"/>
-			<p th:if="${#fields.hasErrors('subdivId')}" th:errors="*{subdivId}">Sub Divisi</p>
-		</div>
+						<label th:for="${divisi.subdivId}">Sub Divisi :</label> 
+						<select th:field="*{subdivId.subdivId}" th:errorclass="fieldError"
+							id="inputSubdiv" class="form-control">
+							<div th:each="x : ${getSub1}">
+								<option th:value="${x.subdivId}" th:text="${x.nama}"></option>
+							</div>
+						</select>
+						<p th:if="${#fields.hasErrors('subdivId')}" th:errors="*{subdivId}">Sub Divisi</p>
+					</div>
 		<div>
-		<input type="submit" value="UBAH"/>
+		<input type="submit" formmethod="post" value="UBAH"/>
 		<input type="hidden" th:field="*{divisiId}" th:value="*{divisiId}" />
 		</div>
 	</form>

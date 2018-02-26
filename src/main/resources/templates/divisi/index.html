@@ -20,6 +20,20 @@
 <script type="text/javascript">
 	$(document).ready(function(){
 		$("table").dataTable();
+		
+		$(".hapus").click(function(){
+			var idx = $(".hapus").index(this);
+			var id = $(".hps:eq(" +idx+ ")").val();
+		    var url = "/deleteDiv";
+		    var choice = confirm('Apakah Anda Yakin Akan Di Hapus?');
+		    if(choice == true){
+		    	$.get(url, {divisiId : id}).done(function(){
+		    		location.reload();
+		    	});
+		    } else {
+		    	return false;
+		    };
+		});
 	});
 </script>
 <title>Index Divisi</title>
@@ -52,7 +66,7 @@
 					<a th:href="@{'/divisi/detail/' + ${divisi.divisiId}}"><i class="fas fa-external-link-alt"></i></a>
 					<a th:href="@{'/divisi/edit/' + ${divisi.divisiId}}"><i class="fas fa-edit"></i></a>	
 					<a href="##" class="hapus"><i class="fas fa-trash-alt"></i></a>	
-					<input type="hidden" class="cas" th:value="${divisi.divisiId}"/>			
+					<input type="hidden" class="hps" th:value="${divisi.divisiId}"/>			
 				</td>
 				</tr>
 		</tbody>
